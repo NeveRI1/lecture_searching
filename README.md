@@ -20,6 +20,9 @@ Vizuální ukázka pro hledání hodnoty 45 může vypadat např. takto:
 
 ![img 1](img/binary.png)
 
+<br />
+<br />
+
 ##	Vyhledávání vzoru
 V předchozím příkladu jsme vyhledávali vždy jen jeden specifický element. V celé řadě případů je však nutné vyhledávat posloupnost elementů, tzv. vzor. V následujícím příkladu si rozšíříme příklad z předchozího úkolu na vyhledávání vzorů v sekvenci DNA.
 Mějme naše data opět uložena v iterovatelné datové struktuře – textovém řetězci. Naivní algoritmus nalezení pozice vzoru opět spočívá jednoduše v tom, že postupně (v sekvenci) projdeme prvky řetězce, dokud nenalezneme přesnou shodu na všech pozicích mezi vzorem a podřetězcem prohlédavané sekvence.
@@ -33,6 +36,3 @@ Základní princip algoritmu pro nalezení pozic vzoru v sekvenci může vypadat
 * Pokud jsou všechny prvky shodné, ulož pozici prostředního prvku podřetězce.
 * Posuň ukazatel o jedno pozici doprava.
 * Opakuj předchozí kroky dokud existuje oblast, která ještě nebyla prohledána. 
-
-<br />
-<br />
