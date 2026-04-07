@@ -3,35 +3,47 @@ from random import choices
 
 def unordered_sequence(max_len=100):
     """
-    Returns list of unordered ints from within a range between -1000 and 1000.
-    :param max_len: (int) desired length of sequence
-    :return: (list) sequence of numbers
+    Generates a list of random integers in arbitrary order.
+
+    Args:
+        max_len (int): Desired length of the sequence.
+
+    Returns:
+        list[int]: List of randomly selected integers from range -1000 to 999.
     """
     return choices(range(-1000, 1000), k=max_len)
 
 
 def ordered_sequence(max_len=100):
     """
-    Returns list of ordered ints from within a range between -1000 and 1000.
-    :param max_len: (int) desired length of sequence
-    :return: (list) sequence of numbers
+    Generates a sorted list of random integers.
+
+    Args:
+        max_len (int): Desired length of the sequence.
+
+    Returns:
+        list[int]: Sorted list of randomly selected integers
+        from range -1000 to 999.
     """
     return sorted(choices(range(-1000, 1000), k=max_len))
 
 
 def dna_sequence(max_len=100):
     """
-    Returns string of randomly generated DNA sequence.
-    :param max_len: (int) desired length of sequence
-    :return: (str) sequence of basis T, G, A, C
+    Generates a random DNA sequence.
+
+    Args:
+        max_len (int): Desired length of the sequence.
+
+    Returns:
+        str: String composed of characters "A", "C", "G", "T".
     """
-    return ''.join(choices('TGAC', k=max_len))
+    return "".join(choices("ACGT", k=max_len))
 
 
 def main():
     """
-    Test function
-    :return:
+    Runs basic tests for sequence generation functions.
     """
     print(unordered_sequence(max_len=500))
     print(ordered_sequence(max_len=500))
