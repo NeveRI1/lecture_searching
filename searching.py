@@ -1,5 +1,8 @@
 from pathlib import Path
 import json
+import random
+import time
+import matplotlib.pyplot as plt
 
 def read_data(file_name, field):
     cwd_path = Path.cwd()
@@ -43,27 +46,58 @@ def binary_search(sequence, target):
 
     return None
 
+def generate_data(size):
+    data = [random.randint(1, 10000) for _ in range(size)]
+    return data, sorted(data)
+
+def measure_time():
+    sizes = [100, 500, 1000, 5000, 10000]
+
+    linear_times = []
+    binary_times = []
+
+    for size in sizes:
+        data, sorted_data = generate_data(size)
+        target = data[-1]
+
+        start = time.time()
+        linear_search(data, target)
+        end = time.time()
+        linear_times.append(end - start)
+
+        start = time.time()
+        binary_search(sorted_data, target)
+        end = time.time()
+        binary_times.append(end - start)
+
+    return sizes, linear_times, binary_times
+
+def plot_results(sizes, linear_times, binary_times):
+    plt.plot(sizes, linear_times, label="Linear Search")
+    plt.plot(sizes, binary_times, label="Binary Search")
+
+    plt.xlabel("Velikost vstupu")
+    plt.ylabel("Čas běhu (s)")
+    plt.title("Porovnání vyhledávání")
+
+    plt.legend()
+    plt.grid()
+    plt.show()
+
 def main():
     sequential_data = read_data("sequential.json", "unordered_numbers")
-    print("Unordered data:", sequential_data)
+    print("Data:", sequential_data)
 
-    target_linear = 31
-    result = linear_search(sequential_data, target_linear)
-
-    print("\nLinear search:")
-    print("Hledané číslo:", target_linear)
-    print("Pozice:", result["positions"])
-    print("Počet výskytů:", result["count"])
+    print("\nLinear search test:")
+    print(linear_search(sequential_data, 5))
 
     ordered_data = read_data("sequential.json", "ordered_numbers")
-    print("\nOrdered data:", ordered_data)
 
-    target_binary = 14
-    index = binary_search(ordered_data, target_binary)
+    print("\nBinary search test:")
+    print(binary_search(ordered_data, 5))
 
-    print("\nBinary search:")
-    print("Hledané číslo:", target_binary)
-    print("Index:", index)
+    sizes, linear_times, binary_times = measure_time()
+    plot_results(sizes, linear_times, binary_times)
 
 if __name__ == "__main__":
     main()
