@@ -15,9 +15,29 @@ def read_data(file_name, field):
 
     return data.get(field)
 
+def linear_search(sequence, target):
+    positions = []
+
+    for i in range(len(sequence)):
+        if sequence[i] == target:
+            positions.append(i)
+
+    return {
+        "positions": positions,
+        "count": len(positions)
+    }
+
 def main():
     sequential_data = read_data("sequential.json", "unordered_numbers")
-    print(sequential_data)
+    print("Data:", sequential_data)
+
+    target = 0
+
+    result = linear_search(sequential_data, target)
+
+    print("Hledané číslo:", target)
+    print("Pozice:", result["positions"])
+    print("Počet výskytů:", result["count"])
 
 if __name__ == "__main__":
     main()
