@@ -46,6 +46,17 @@ def binary_search(sequence, target):
 
     return None
 
+def pattern_search(sequence, pattern):
+    positions = set()
+    n = len(sequence)
+    m = len(pattern)
+
+    for i in range(n - m + 1):
+        if sequence[i:i + m] == pattern:
+            positions.add(i)
+
+    return positions
+
 def generate_data(size):
     data = [random.randint(1, 10000) for _ in range(size)]
     return data, sorted(data)
@@ -62,19 +73,17 @@ def measure_time():
 
         start = time.time()
         linear_search(data, target)
-        end = time.time()
-        linear_times.append(end - start)
+        linear_times.append(time.time() - start)
 
         start = time.time()
         binary_search(sorted_data, target)
-        end = time.time()
-        binary_times.append(end - start)
+        binary_times.append(time.time() - start)
 
     return sizes, linear_times, binary_times
 
 def plot_results(sizes, linear_times, binary_times):
-    plt.plot(sizes, linear_times, label="Linear Search")
-    plt.plot(sizes, binary_times, label="Binary Search")
+    plt.plot(sizes, linear_times, label="Linear search")
+    plt.plot(sizes, binary_times, label="Binary search")
 
     plt.xlabel("Velikost vstupu")
     plt.ylabel("Čas běhu (s)")
@@ -86,15 +95,23 @@ def plot_results(sizes, linear_times, binary_times):
 
 def main():
     sequential_data = read_data("sequential.json", "unordered_numbers")
-    print("Data:", sequential_data)
-
-    print("\nLinear search test:")
-    print(linear_search(sequential_data, 5))
+    print("Unordered:", sequential_data)
 
     ordered_data = read_data("sequential.json", "ordered_numbers")
+    print("Ordered:", ordered_data)
 
-    print("\nBinary search test:")
+    dna_sequence = read_data("sequential.json", "dna_sequence")
+    print("DNA loaded")
+
+    print("\nLinear search:")
+    print(linear_search(sequential_data, 5))
+
+    print("\nBinary search:")
     print(binary_search(ordered_data, 5))
+
+    print("\nPattern search:")
+    pattern = "ATA"
+    print(pattern_search(dna_sequence, pattern))
 
     sizes, linear_times, binary_times = measure_time()
     plot_results(sizes, linear_times, binary_times)
